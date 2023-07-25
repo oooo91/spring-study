@@ -35,7 +35,7 @@ public class ApplicationContextSameBeanFindTest {
         assertThat(memberRepository).isInstanceOf(MemberRepository.class);
     }
 
-    //getBeansOfType으로 조회하면 Map<>이 반환됨 (타입은 같은데 이름은 다른 경우들 있으니까)
+    //getBeansOfType으로 조회하면 Map<>이 반환됨 (타입은 같은데 이름은 다른 경우)
     //한 번에 조회하는 방법.. 자동 의존관계 주입할 때 이러한 것들이 적용되기 때문에 알아봤다
     @Test
     @DisplayName("특정 타입을 모두 조회하기")

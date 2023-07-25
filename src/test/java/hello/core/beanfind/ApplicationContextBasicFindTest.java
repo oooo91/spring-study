@@ -31,7 +31,7 @@ public class ApplicationContextBasicFindTest {
     }
 
     //스프링에 등록되어있으면 가능 왜냐면 스프링 빈에 등록된 인스턴스 타입을 보고 결정되기 때문에 ㅇㅇ
-    // 근데 이렇게 하진 말자 역할과 구현을 구분하고 역할에 의존하자
+    //근데 이렇게 하진 말자 역할과 구현을 구분하고 역할에 의존하자
     @Test
     @DisplayName("구현체 타입으로 조회")
     void findBeanByName2() {
