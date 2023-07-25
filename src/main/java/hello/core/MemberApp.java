@@ -12,7 +12,7 @@ public class MemberApp {
         //AppConfig appConfig = new AppConfig();
         //MemberService memberService = appConfig.memberService(); //new로 직접 생성하지 않고 appconfig를 통해 생성
 
-        //ApplicationContext = 스프링 컨테이너가 빈을 관리하겠다
+        //ApplicationContext(스프링 컨테이너, 인터페이스) = 스프링 컨테이너가 빈을 관리하겠다
         //기본에는 개발자가 AppConfig를 직접 생성해서 DI했지만 이제 스프링 컨테이너를 통해 DI한다
         //스프링 컨테이너는 @Bean이라 적힌 메서드를 일단 모두 호출해서 -> 반환된 객체를 스프링 컨테이너에 모두 등록한다.
         //이렇게 스프링 컨테이너에 등록된 객체를 스프링 빈이라 한다

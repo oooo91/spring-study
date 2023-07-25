@@ -27,7 +27,12 @@ public class AppConfig {
         }
     */
 
+    //AppConfig보다 Spring Container가 더 나은 이유 중 하나
+    //스프링은 빈을 생성하고 의존관계를 주입하는 단계가 나뉘어져 있는데 스프링 빈을 등록하게 되면 생성자를 호출하면서 의존관계 주입도 한 번에 처리됨
+    //이를 의존 관계 자동 주입이라고 함
+
     //리팩토링 진행했음 -> 중복이 있고 역할에 따른 구현이 잘 안 보이는 걸 이리 바꿈
+    //memberService는 key고 MemberServiceImpl이 value 라고 생각하면 됨
     @Bean //<-각 메서드에 빈으로 등록하면 스프링 컨테이너에 등록된다.
     public MemberService memberService() {
         return new MemberServiceImpl(memberRepository());
