@@ -16,16 +16,14 @@ import org.springframework.context.annotation.Configuration;
 public class AppConfig {
 
     //service단에서 new ~ 했던 걸 app config에서 다 해준다. (밖에서 생성해줘서 주입해준다)
-    /*
-        public MemberService memberService() {
+    /* public MemberService memberService() {
             //AppConfig -> memoryMemberRepository 생성하고, memberServiceImpl을 생성하고 해당 repository를 주입하는 것까지 담당
             return new MemberServiceImpl(new MemoryMemberRepository());
         }
 
         public OrderService orderService() {
             return new OrderServiceImpl(new MemoryMemberRepository(), new FixDiscountPolicy());
-        }
-    */
+        } */
 
     //AppConfig보다 Spring Container가 더 나은 이유 중 하나
     //스프링은 빈을 생성하고 의존관계를 주입하는 단계가 나뉘어져 있는데 스프링 빈을 등록하게 되면 생성자를 호출하면서 의존관계 주입도 한 번에 처리됨
@@ -54,5 +52,10 @@ public class AppConfig {
     public DiscountPolicy discountPolicy() {
         return new FixDiscountPolicy();
     }
+
+    //@Configuration -> 싱글톤을 위해서 존재하는 어노테이션임
+    //AppCig(순수 자바 코드)만 봐도 memberService와 orderService를 호출하면 MemoryMemberRepository는 두 번이나 호출됨 (싱글톤 패턴 깨짐)
+    //근데 다 같은 인스턴스가 호출됨 (싱글톤 패턴임)
+    //스프링 컨테이너가 싱글톤을 보장해주는 구나 (어떻게? -> @Configuration 덕분에)
 
 }
