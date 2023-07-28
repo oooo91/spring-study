@@ -6,7 +6,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
+import org.springframework.stereotype.Component;
 
+/*
 @Configuration //얘도 @Component 붙어있다
 @ComponentScan(
         basePackages = "hello.core.member", //여기서부터 하위 파일만 찾아가서 member만 조회됨
@@ -14,6 +16,9 @@ import org.springframework.context.annotation.FilterType;
         excludeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION,
                 classes = Configuration.class
         )) //그간 각 메소드마다 @Bean을 통해 등록했는데, 얘는 @Component 붙인 애들을 다 컨테이너에 등록해줌, 저거 왜 빼냐면 AppConfig < 수동으로 @Bean등록한 클래스 제외하려고
+*/
+@Configuration
+@ComponentScan(excludeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = Configuration.class))
 public class AutoAppConfig {
 
         //컴포넌트 스캔의 용도뿐 아니라 다음 어노테이션이 있으면 스프링은 부가 기능을 수행함
