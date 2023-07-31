@@ -28,11 +28,13 @@ public class AutoAppConfig {
         //@Service -> 개발자들이 핵심 비즈니스 로직이 여기있구나.. 인식하는 용도
 
         //같은 이름이 빈으로 등록될 때 어떻게 될까
-        //자동 빈 vs 자동 빈 충돌할 경우는 컴파일 오류가 난다
+        //자동 빈 vs 자동 빈 충
+        //
+        // 돌할 경우는 컴파일 오류가 난다
         //아래는 자동 빈 vs 수동 빈 충돌이다
         //수동 빈 등록이 우선권을 가져서 수동 빈이 자동 빈을 오버라이딩을 해버린다. 그래서 덮어씌우면서 등록되는데, 스프링 부트는 이를 막아놔서 스프링에서 오류를 준다.
-        @Bean(name = "memoryMemberRepository")
-        MemberRepository memberRepository() {
-                return new MemoryMemberRepository();
-        }
+        //@Bean(name = "memoryMemberRepository")
+        //MemberRepository memberRepository() {
+        //        return new MemoryMemberRepository();
+        //}
 }
