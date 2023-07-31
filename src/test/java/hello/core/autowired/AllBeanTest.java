@@ -43,11 +43,11 @@ public class AllBeanTest {
         private final Map<String, DiscountPolicy> policyMap; //map으로 모든 빈 받기
         private final List<DiscountPolicy> policies; //ㅣlist로 모든 빈 받기
 
+        //이런 Map이나 List로 빈을 받을 때는 한 번에 타입을 구분할 수 없기 때문에 이렇게 자동보다는 @Bean을 이용한 수동으로 등록한다
         @Autowired
         public DiscountService(Map<String, DiscountPolicy> policyMap, List<DiscountPolicy> policies) {
             this.policyMap = policyMap;
             this.policies = policies;
-
             System.out.println("policyMap : " + policyMap);
             System.out.println("policies : " + policies);
         }
