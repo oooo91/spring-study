@@ -22,7 +22,15 @@ public class MvcMemberListServlet extends HttpServlet {
             throws ServletException, IOException {
         List<Member> members = memberRepository.findAll();
 
-        //이 작업 계속 반복되네...........
+        /**
+         * MVC 컨트롤러 한계점
+         * 1. 포워드 중복
+         * 2. VIEWPATH 중복
+         * 3. 사용하지 않는 코드 -> 예를 들어 HttpServletRequest, HttpServletResponse만 봐도 사용할 때도 있고 사용하지 않을 때도 있다.
+         * HttpServletRequest, HttpServletResponse 를 사용하는 코드는 테스트 케이스를 작성하기도 어렵다.
+         * 4. 공통처리가 어렵다
+         * -> 프론트 컨트롤러 패턴 필요 -> 스프링 MVC 핵심
+         */
         request.setAttribute("members", members);
 
         String viewPath = "/WEB-INF/views/members.jsp";
