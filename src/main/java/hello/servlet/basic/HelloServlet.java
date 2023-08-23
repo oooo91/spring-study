@@ -30,7 +30,7 @@ public class HelloServlet extends HttpServlet {
     }
 }
 
-/*
+/**
 HttpServletRequest는 다른 여러 기능도 함께 제공한다.
 
 1. 임시 저장소 기능
@@ -44,7 +44,7 @@ request.getSession(create : true)
 */
 
 
-/*
+/**
 HTTP 요청 데이터 - 개요
 HTTP 요청 메시지를 통해 클라이언트에서 서버로 데이터를 전달하는 방법을 알아보자.
 주로 다음 3가지 방법을 사용한다.
@@ -57,11 +57,17 @@ GET - 쿼리 파라미터
 POST - HTML Form
 content-type: application/x-www-form-urlencoded
 메시지 바디에 쿼리 파리미터 형식으로 전달 username=hello&age=20
+--> get이나 post나 쿼리 파라미터 형식으로 전달되므로 위의 /hello에 get, post 다 보낼 수 있다.
+--> 즉 클라이언트(브라우저) 입장에서는 두 방식에 차이가 있으나 서버는 둘의 형식이 동일하므로 request.getParameter()로 편리하게 구분없이 조회할 수 있다.
+--> 결론적으로 getParamater은 get과 post 방식 둘 다 지원한다.
 예) 회원 가입, 상품 주문, HTML Form 사용
 
 HTTP message body에 데이터를 직접 담아서 요청
 HTTP API에서 주로 사용, JSON, XML, TEXT
 데이터 형식은 주로 JSON 사용
 POST, PUT, PATCH
-
  */
+
+/**
+
+*/
