@@ -57,7 +57,7 @@ public class RequestHeaderServlet extends HttpServlet {
         System.out.println();
     }
 
-    //편의 조회
+    //헤더 편의 조회
     private void printHeaderUtils(HttpServletRequest request) {
 
         System.out.println("--- Header 편의 조회 start ---");

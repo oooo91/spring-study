@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-// /hello 요청 -> WAS가 REQUEST, RESPONSE 만들어서 HelloServlet(서블릿 객체) 호출 -> 호출하면 해당 객체의 service가 호출
+/**
+ * /hello 요청 -> WAS가 REQUEST, RESPONSE 만들어서 HelloServlet(서블릿 객체) 호출 -> 호출하면 해당 객체의 service가 호출
+ */
 @WebServlet(name = "helloServlet", urlPatterns = "/hello") //서블릿 어노테이션 (name:서블릿 이름, urlPatterns : URL 매핑)
 public class HelloServlet extends HttpServlet {
 
@@ -43,31 +45,3 @@ request.getSession(create : true)
 가장 중요한 결론은 HttpServletRequest/Response는 HTTP 요청/응답 메시지를 편리하게 사용하도록 도와주는 객체라는 점이다.
 */
 
-
-/**
-HTTP 요청 데이터 - 개요
-HTTP 요청 메시지를 통해 클라이언트에서 서버로 데이터를 전달하는 방법을 알아보자.
-주로 다음 3가지 방법을 사용한다.
-
-GET - 쿼리 파라미터
-/url?username=hello&age=20
-메시지 바디 없이, URL의 쿼리 파라미터에 데이터를 포함해서 전달
-예) 검색, 필터, 페이징등에서 많이 사용하는 방식
-
-POST - HTML Form
-content-type: application/x-www-form-urlencoded
-메시지 바디에 쿼리 파리미터 형식으로 전달 username=hello&age=20
---> get이나 post나 쿼리 파라미터 형식으로 전달되므로 위의 /hello에 get, post 다 보낼 수 있다.
---> 즉 클라이언트(브라우저) 입장에서는 두 방식에 차이가 있으나 서버는 둘의 형식이 동일하므로 request.getParameter()로 편리하게 구분없이 조회할 수 있다.
---> 결론적으로 getParamater은 get과 post 방식 둘 다 지원한다.
-예) 회원 가입, 상품 주문, HTML Form 사용
-
-HTTP message body에 데이터를 직접 담아서 요청
-HTTP API에서 주로 사용, JSON, XML, TEXT
-데이터 형식은 주로 JSON 사용
-POST, PUT, PATCH
- */
-
-/**
-
-*/
