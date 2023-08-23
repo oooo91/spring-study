@@ -28,7 +28,8 @@ public class MemberListServlet extends HttpServlet {
         /**
          * 서블릿 덕에 동적으로 HTML을 만들 수 있으나,
          * 서블릿과 자바로 html 짜니까 별루다. -> 템플릿 엔진 (HTML 안에 자바 코드)으로 보완
-         * JSP에 자바 코드 별루다 -> 서블릿 부근은 비즈니스 로직에 집중하고, JSP는 뷰에 집중하도록 하자 -> MVC 패턴 나타남
+         * JSP에 자바 코드 별루다 -> 서블릿 부근은 비즈니스 로직에 집중하고(Controller), JSP는 뷰에 집중하도록 하자(View) -> MVC 패턴 나타남
+         * Model -> 뷰에 출력할 데이터
          */
         PrintWriter w = response.getWriter();
         w.write("<html>");
