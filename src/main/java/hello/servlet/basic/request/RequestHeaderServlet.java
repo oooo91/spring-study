@@ -40,7 +40,7 @@ public class RequestHeaderServlet extends HttpServlet {
     private void printHeaders(HttpServletRequest request) {
         System.out.println("--- Headers - start ---");
 
-        /* 헤더 정보 가져오는 방법 첫 번째
+        /** 헤더 정보 가져오는 방법 첫 번째
          Enumeration<String> headerNames = request.getHeaderNames();
          while (headerNames.hasMoreElements()) {
          String headerName = headerNames.nextElement();
@@ -48,7 +48,7 @@ public class RequestHeaderServlet extends HttpServlet {
          }
         */
 
-        /*
+        /**
         모든 헤더 정보
         */
         request.getHeaderNames().asIterator()
