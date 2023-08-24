@@ -1,11 +1,6 @@
 package hello.servlet.web.frontcontroller.v4;
 
-import hello.servlet.web.frontcontroller.ModelView;
 import hello.servlet.web.frontcontroller.MyView;
-import hello.servlet.web.frontcontroller.v3.ControllerV3;
-import hello.servlet.web.frontcontroller.v3.controller.MemberFormControllerV3;
-import hello.servlet.web.frontcontroller.v3.controller.MemberListControllerV3;
-import hello.servlet.web.frontcontroller.v3.controller.MemberSaveControllerV3;
 import hello.servlet.web.frontcontroller.v4.controller.MemberFormControllerV4;
 import hello.servlet.web.frontcontroller.v4.controller.MemberListControllerV4;
 import hello.servlet.web.frontcontroller.v4.controller.MemberSaveControllerV4;
@@ -23,6 +18,22 @@ import java.util.Map;
 @WebServlet(name = "frontControllerServletV4", urlPatterns = "/front-controller/v4/*")
 public class FrontControllerServletV4 extends HttpServlet {
 
+    /**
+     * v5가 개선해야할 문제 -> 컨트롤러 형식이 정해져있다.
+     * 가령 ControllerV4를 사용하다가 ControllerV1 형식으로 (request, response) 데이터를 받고 싶을 때가 있을 것이다.
+     * 근데 쓸 수 없음 아래 코드 보셈 ControllerV4 떡하니 인터페이스 타입 고정되어있는데 쓸 수 있겠냐
+     * 따라서 어떤 컨트롤러든 호출할 수 있는 유연한 컨트롤러 인터페이스가 필요하다. -> 어뎁터 패턴 사용하자
+
+     * 어뎁터 패턴이란
+     * ControllerV3과 ControllerV4가 호환되도록 하는 패턴 (프론트 컨트롤러가 다양한 방식의 컨트롤러를 처리할 수 있도록 한다.)
+     * 이제부터 프론트 컨트롤러는 직접 컨트롤러(핸들러)를 호출하는 것이 아니라 어뎁터를 통해서 호출하게 될 텐데,
+     * 프론트 컨트롤러는 (예를 들어) ControllerV3(핸들러 매핑 정보)를 가지고
+     * 이 핸들러를 처리할 수 있는 핸들러 어뎁터를 조회해와서 이 어뎁터를 통해 (->handler() 호출) 핸들러를 호출하게 된다.
+
+     * 어뎁터 주의?할 점
+     * 어뎁터는 실제 컨트롤러를 호출하고 그 결과로 무조건 ModelView(데이터)를 반환해야 한다.
+     * 실제 컨트롤러가 ModelView를 반환하지 못하는 컨트롤러면, 어뎁터가 ModelView를 직접 생성해서라도 반환해야 한다.
+     */
     private Map<String, ControllerV4> controllerV4Map = new HashMap<>();
 
     public FrontControllerServletV4() {
