@@ -48,6 +48,13 @@ public class FrontControllerServletV3 extends HttpServlet {
 
         String requestURI = request.getRequestURI();
 
+        /**
+         * URI에 해당하는 컨트롤러 찾음
+         * Request의 데이터를 Map에 담음
+         * Controller을 통해 반환할 논리주소와 데이터를 ModelView로 반환받음
+         * ModelView에서 논리 주소를 꺼내 물리 주소로 변환
+         * dispatcher을 불러서 jsp 랜더링 호출
+         */
         ControllerV3 controller = controllerV3Map.get(requestURI);
         if (controller == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -72,7 +79,7 @@ public class FrontControllerServletV3 extends HttpServlet {
         return view;
     }
 
-    //paramMap을 넘겨야한다 -> request 다 꺼내서 paramMap에 담는다.
+    //paramMap을 넘겨야한다 -> request에서 데이터 다 꺼내서 paramMap에 담는다.
     private static Map<String, String> createParamMap(HttpServletRequest request) {
 
         Map<String, String> paramMap = new HashMap<>();
