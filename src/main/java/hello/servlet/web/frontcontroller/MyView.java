@@ -5,6 +5,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * 컨트롤러에서 뷰를 직접 반환하는 것이 아니라,
@@ -22,5 +23,17 @@ public class MyView {
                                             throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher(viewPath);
         dispatcher.forward(request, response);
+    }
+
+    public void render(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response)
+                                                                    throws ServletException, IOException {
+        modelToRequestAttribute(model, request);
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher(viewPath);
+        dispatcher.forward(request, response);
+    }
+
+    private static void modelToRequestAttribute(Map<String, Object> model, HttpServletRequest request) {
+        model.forEach((k, v) -> request.setAttribute(k, v));
     }
 }

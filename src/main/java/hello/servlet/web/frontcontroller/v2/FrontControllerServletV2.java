@@ -14,17 +14,11 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * 얘가 서블릿 (프론트 컨트롤러)
- * /front-controller/v1 하위의 url -> 무조건 해당 서블릿이 호출된다.
- */
 @WebServlet(name = "frontControllerServletV2", urlPatterns = "/front-controller/v2/*")
 public class FrontControllerServletV2 extends HttpServlet {
 
-    //어떤 url 호출하면 -> ControllerV1을 호출해라
     private Map<String, ControllerV2> controllerV2Map = new HashMap<>();
 
-    //서블릿 생성 시 맵핑 정보
     public FrontControllerServletV2() {
         controllerV2Map.put("/front-controller/v2/members/new-form", new MemberFormControllerV2());
         controllerV2Map.put("/front-controller/v2/members/save", new MemberSaveControllerV2());
