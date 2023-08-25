@@ -10,6 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
+/**
+ * @RequestMapping 을 잘 보면 클래스 단위가 아니라 메서드 단위에 적용된 것을 확인할 수 있다. 따라서
+ * 컨트롤러 클래스를 유연하게 하나로 통합할 수 있다
+ */
 @Controller
 @RequestMapping("/springmvc/v2/members")
 public class SpringMemberControllerV2 {
@@ -41,6 +45,12 @@ public class SpringMemberControllerV2 {
         memberRepository.save(member);
 
         ModelAndView mv = new ModelAndView("save-result"); //jsp 논리 주소
+
+        /**
+         * mv.addObject("member", member)
+         * 스프링이 제공하는 ModelAndView 를 통해 Model 데이터를 추가할 때는 addObject() 를 사용하면
+         * 된다. 이 데이터는 이후 뷰를 렌더링 할 때 사용된다
+         */
         mv.addObject("member", member);
 
         return mv;
