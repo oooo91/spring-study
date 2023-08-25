@@ -67,11 +67,11 @@ public class LogTestController {
          * log.debug("data={}", data)
          * 로그 출력 레벨을 info로 설정하면 아무일도 발생하지 않는다. 따라서 앞과 같은 의미없는 연산이 발생하지 않는다.
          */
-        log.debug(" info log={}", name);
-        log.trace(" info log={}", name);
+        log.debug(" debug log={}", name);
+        log.trace(" trace log={}", name);
         log.info(" info log={}", name);
-        log.warn(" info log={}", name);
-        log.error(" info log={}", name);
+        log.warn(" warn log={}", name);
+        log.error(" error log={}", name);
 
         return "ok";
     }
