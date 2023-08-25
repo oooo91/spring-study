@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 public class SpringMemberSaveControllerV1 {
     private MemberRepository memberRepository = hello.servlet.domain.member.MemberRepository.getInstance();
 
-    @RequestMapping("/springmvc/v1/member/save")
+    @RequestMapping("/springmvc/v1/members/save")
     public ModelAndView process(HttpServletRequest request, HttpServletResponse response) {
 
         String username = request.getParameter("username");
