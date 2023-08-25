@@ -149,9 +149,18 @@ public class RequestParamController {
     /**
      * 1. @ModelAttribute 는 생략할 수 있다. (직접 만든 객체)
      * 2. @RequestParam 도 생략할 수 있으니 혼란이 발생할 수는 있다.
-     * 3. 단 예외가 있는데 ArgumentResolver로 지정이 되어있는 그러니까 예약어 (예를 들어 HttpServletRequest) 같은 경우는
-     * 어노테이션이 없더라도 @ModelAttribute로 취급 안 한다.
-     * 4. argument resolver 로 지정해둔 타입 외 = @ModelAttribute
+     * 3. argument resolver 로 지정해둔 타입 외 = @ModelAttribute
+
+     * ArgumentResolver(아규먼트 리졸버)란?
+     * 스프링의 디스패처 서블릿은 컨트롤러로 요청을 전달한다.
+     * 그때 컨트롤러에서 필요로 하는 객체를 만들고 값을 바인딩하여 전달하기 위해 사용되는 것이 ArgumentResolver이다.
+     * 스프링이 제공하는 다음과 같은 어노테이션들은 모두 ArgumentResolver로 동작한다.
+
+     * @RequestParam: 쿼리 파라미터 값 바인딩
+     * @ModelAttribute: 쿼리 파라미터 및 폼 데이터 바인딩
+     * @CookieValue: 쿠키값 바인딩
+     * @RequestHeader: 헤더값 바인딩
+     * @RequestBody: 바디값 바인딩
      */
     @ResponseBody
     @RequestMapping("/model-attribute-v2")
