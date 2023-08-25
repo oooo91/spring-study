@@ -8,7 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 예전에는 스프링 mvc 컨트롤러를 어떻게 만들었나
+ * 예전에는 스프링은 컨트롤러를 어떻게 만들었나
+ * 과거에는 자바 언어에 어노테이션이 없었다. 스프링도 처음부터 유연한 컨트롤러를 제공한 것은 아니다.
  * 아래의 Controller와 @Controller은 전혀 다른 코드다.
  * 핸들러 매핑을 따로 처리해야한다.
  */
@@ -21,7 +22,7 @@ public class OldController implements Controller {
     }
 
     /**
-     * 스프링 mvc의 핸들러 매핑, 어뎁터란?
+     * 스프링의 핸들러 매핑, 어뎁터란?
      http://localhost:8080/springmvc/old-controller 실행 시 콘솔에 OldController.handleRequest 이 출력되면 성공이다.
      이 컨트롤러는 어떻게 호출될 수 있었을까?
 
@@ -72,7 +73,7 @@ public class OldController implements Controller {
      */
 
     /**
-     * 스프링 mvc의 뷰 리졸버란?
+     * 스프링의 뷰 리졸버란?
      * return new ModelAndView("new-form"); //논리 이름 -> 어케 물리 주소로 바꾸려나
 
      * 뷰 리졸버 - InternalResourceViewResolver

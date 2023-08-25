@@ -2,7 +2,7 @@ package hello.servlet.web.springmvc;
 
 public class intro {
     /**
-     * 스프링 mvc는 그간의 구조와 동일하되 frontController가 아닌 DispatcherServlet이 동작한다.
+     * 스프링은 그간의 구조와 동일하되 frontController가 아닌 DispatcherServlet이 동작한다.
      * DispatcherServlet
      * ㄴ 얘도 서블릿 (DispatcherServlet -> FrameworkServlet -> HttpServletBean -> HttpServlet)
      * ㄴ 스프링부트가 얘를 서블릿으로 자동 등록을 하면서 모든 경로(urlPatterns="/")(우선순위 가장 낮음)에 대해서 매핑한다.
