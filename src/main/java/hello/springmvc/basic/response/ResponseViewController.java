@@ -5,6 +5,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+/**
+ * HTML 데이터 전달하고자 할 때
+ */
 @Controller
 public class ResponseViewController {
 
