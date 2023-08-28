@@ -93,6 +93,15 @@ public class BasicItemController {
     }
 
     /**
+     * 왜 수정할 때는 리다이렉트를 쓰나?
+     */
+    @PostMapping("/{itemId}/edit")
+    public String edit(@PathVariable Long itemId, @ModelAttribute Item item) {
+       itemRepository.update(itemId, item);
+       return "redirect:/basic/items/{itemId}"; //@PathVariable Long itemId의 값을 그대로 사용한다.
+    }
+
+    /**
      * 테스트용 데이터 추가
      */
     @PostConstruct
