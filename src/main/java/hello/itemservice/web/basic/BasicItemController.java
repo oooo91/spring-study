@@ -68,7 +68,6 @@ public class BasicItemController {
 
     /**
      * ("") 생략하면 -> 클래스 이름 맨 앞의 글자를 소문자로 바꾼 키로 ModelAttribute에 담긴다.
-     * 심지어 ModelAttribute 생략 가능하다.
      */
     // @PostMapping("/add")
     public String addItemV3(@ModelAttribute Item item) {
