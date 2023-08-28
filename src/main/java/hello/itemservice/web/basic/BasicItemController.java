@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
@@ -36,7 +37,8 @@ public class BasicItemController {
         return "basic/addForm";
     }
 
-   // @PostMapping("/add")
+
+    // @PostMapping("/add")
     public String addItemV1(@RequestParam String itemName,
                        @RequestParam int price,
                        @RequestParam Integer quantity,
@@ -55,7 +57,7 @@ public class BasicItemController {
     /** ㅁㅊ
      * ModelAttribute -> 요청 파라미터 처리할 뿐 아니라 model.addAttribute("item", item) 자동으로 만들어준다.
      */
-    @PostMapping("/add")
+    // @PostMapping("/add")
     public String addItemV2(@ModelAttribute("item") Item item, Model model) {
 
         itemRepository.save(item);
@@ -68,7 +70,7 @@ public class BasicItemController {
      * ("") 생략하면 -> 클래스 이름 맨 앞의 글자를 소문자로 바꾼 키로 ModelAttribute에 담긴다.
      * 심지어 ModelAttribute 생략 가능하다.
      */
-    @PostMapping("/add")
+    // @PostMapping("/add")
     public String addItemV3(@ModelAttribute Item item) {
 
         itemRepository.save(item);
@@ -78,11 +80,36 @@ public class BasicItemController {
     /**
      * 심지어 ModelAttribute 생략 가능하다.
      */
-    @PostMapping("/add")
+    // @PostMapping("/add")
     public String addItemV4(Item item) {
 
         itemRepository.save(item);
         return "basic/item";
+    }
+
+    // @PostMapping("/add")
+    public String addItemV5(Item item) {
+
+        itemRepository.save(item);
+        /**
+         * "redirect:/basic/items/" + item.getId(); -> redirect에서 + item.getId()처럼
+         * URL에 변수를 더해서 사용하는 것은 URL 인코딩이 안되기 때문에 RedirectAttributes를 사용해야한다.
+         */
+        return "redirect:/basic/items/" + item.getId();
+    }
+
+    @PostMapping("/add")
+    public String addItemV6(Item item, RedirectAttributes redirectAttributes) {
+        /**
+         * 리다이렉트 안정적이게 하는 방법 -> RedirectAttributes
+         * URL 인코딩 해준다
+         * 리다이렉트 되는 URL에 파라미터 있으면 인코딩 + 치환한다
+         * 리다이렉트 되는 URL에 파라미터 없으면 쿼리 스트링으로 넘어간다.
+         */
+        Item saveItem = itemRepository.save(item);
+        redirectAttributes.addAttribute("itemId", saveItem.getId());
+        redirectAttributes.addAttribute("status", true);
+        return "redirect:/basic/items/{itemId}";
     }
 
     @GetMapping("/{itemId}/edit")
