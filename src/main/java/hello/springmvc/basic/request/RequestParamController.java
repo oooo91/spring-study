@@ -150,12 +150,14 @@ public class RequestParamController {
      * 1. @ModelAttribute 는 생략할 수 있다. (직접 만든 객체)
      * 2. @RequestParam 도 생략할 수 있으니 혼란이 발생할 수는 있다.
      * 3. argument resolver 로 지정해둔 타입 외 = @ModelAttribute
+     * 즉 argument resolver 가 converting 작업을 하여 생성된 객체를 제외하고, 그 외는 생략 시 modelAndAttribute로 알아서 동작한다.
 
      * ArgumentResolver(아규먼트 리졸버)란?
      * 스프링의 디스패처 서블릿은 컨트롤러로 요청을 전달한다.
      * 그때 컨트롤러에서 필요로 하는 객체를 만들고 값을 바인딩하여 전달하기 위해 사용되는 것이 ArgumentResolver이다.
      * 스프링이 제공하는 다음과 같은 어노테이션들은 모두 ArgumentResolver로 동작한다.
 
+     * argument resolver가 컨트롤러의 파라미터, 어노테이션 정보를 기반으로 converting 하여 전달 데이터 생성
      * @RequestParam: 쿼리 파라미터 값 바인딩
      * @ModelAttribute: 쿼리 파라미터 및 폼 데이터 바인딩
      * @CookieValue: 쿠키값 바인딩
