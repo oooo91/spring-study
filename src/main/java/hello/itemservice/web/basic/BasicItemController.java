@@ -94,6 +94,10 @@ public class BasicItemController {
 
     /**
      * 왜 수정할 때는 리다이렉트를 쓰나?
+     * 이슈 -> 마지막 요청이 post(등록)이라, 새로고침 시 마지막 행위가 다시 요청되어 계속 등록되는 현상
+     * 웹 브라우저의 새로 고침은 마지막에 서버에 전송한 데이터를 다시 전송한다.
+     * 이때 post 요청 이후 리다이렉트로 상품 조회를 보내버리면, 새로고침을 하더라도 마지막 요청이 조회이기 때문에 위의 현상이 해결된다.
+     * 이럴 때 리다이렉트가 사용된다 -> prg (post redirect get 라고 한다.)
      */
     @PostMapping("/{itemId}/edit")
     public String edit(@PathVariable Long itemId, @ModelAttribute Item item) {
