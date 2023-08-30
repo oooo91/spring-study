@@ -31,6 +31,16 @@ class MemberRepositoryV0Test {
          * lombok @Data 사용하면 ToString 으로 출력된다.
          */
         assertThat(findMember).isEqualTo(member);
+
+        //update money : 1000 -> 2000
+        repository.update(member.getMemberId(), 20000);
+        Member updatedMember = repository.findById(member.getMemberId());
+        assertThat(updatedMember.getMoney()).isEqualTo(20000);
+
+        //delete
+        repository.delete(member.getMemberId());
+        assertThatThrownBy(() -> repository.findById(member.getMemberId()))
+                .isInstanceOf(NoSuchFieldError.class);
     }
 
 }
