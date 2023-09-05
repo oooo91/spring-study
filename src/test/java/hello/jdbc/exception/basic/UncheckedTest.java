@@ -39,12 +39,12 @@ public class UncheckedTest {
     @Test
     void unchecked_throw() {
         Service service = new Service();
-        Assertions.assertThatThrownBy(() -> service.callThrow()).isInstanceOf(MyUncheckecException.class);
+        Assertions.assertThatThrownBy(() -> service.callThrow()).isInstanceOf(MyUncheckedException.class);
     }
 
 
-    static class MyUncheckecException extends RuntimeException {
-        public MyUncheckecException(String message) {
+    static class MyUncheckedException extends RuntimeException {
+        public MyUncheckedException(String message) {
             super(message);
         }
     }
@@ -79,7 +79,7 @@ public class UncheckedTest {
      */
     static class Repository {
         public void call() {
-            throw new MyUncheckecException("ex");
+            throw new MyUncheckedException("ex");
         }
     }
 }
