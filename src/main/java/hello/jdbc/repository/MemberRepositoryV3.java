@@ -3,6 +3,10 @@ package hello.jdbc.repository;
 import hello.jdbc.domain.Member;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.datasource.DataSourceUtils;
+/**
+ * 기존에 직접 꺼냈던 DataSource는 javax.sql.DataSource jdbc 그냥 갖다가 쓴데다가(의존성) 동기화를 위해 파라미터로 넘겨야했지만
+ * spring에서 제공하는 DataSourceUtils로 쉽게 커넥션을 동기화할 수 있다.
+ */
 import org.springframework.jdbc.support.JdbcUtils;
 
 import javax.sql.DataSource;
@@ -26,9 +30,9 @@ import java.util.NoSuchElementException;
  * 커넥션을 con.close() 를 사용해서 직접 닫아버리면 커넥션이 유지되지 않는 문제가 발생한다.
  * 이 커넥션은 이후 로직은 물론이고, 트랜잭션을 종료(커밋, 롤백)할 때 까지 살아있어야 한다.
 
- * DataSourceUtils.releaseConnection() 을 사용하면 커넥션을 바로 닫는 것이 아니다.
- * 트랜잭션을 사용하기 위해 동기화된 커넥션은 커넥션을 닫지 않고 그대로 유지해준다.
- * 트랜잭션 동기화 매니저가 관리하는 커넥션이 없는 경우 해당 커넥션을 닫는다.
+ * DataSourceUtils.releaseConnection() 을 사용하면 트랜잭션이 끝나도 리포지토리에서 커넥션을 바로 닫지 않는다.
+ * 해당 트랜잭션은 비즈니스 로직에서 실행했기 때문에 동기화된 커넥션을 닫지 않고 그대로 유지해준다.
+ * 트랜잭션 동기화 매니저가 관리하는 커넥션이 없는 경우 트랜잭션 종료되면 해당 커넥션을 그냥 닫는다.
  */
 @Slf4j
 public class MemberRepositoryV3 {
@@ -148,7 +152,9 @@ public class MemberRepositoryV3 {
 
     private Connection getConnection() throws SQLException {
         /**
-         * 주의! 트랜잭션 동기화 하려면 DataSourceUtils 를 사용하여 직접 꺼내는 게 아니라 매니저로부터 받아야한다.
+         * 주의! 트랜잭션 동기화 하려면 DataSource가 아니라 DataSourceUtils 를 사용해야한다.
+         * DataSourceUtils 에서 커넥션을 가져온다. (리포지토리에서 트랜잭션 동기화 매니저에서 트랜잭션을 막 시작한 커넥션을 가져온다.)
+         * 그렇게 되면 트랜잭션 매니저가 해당 커넥션을 트랜잭션 동기화 매니저에 보관하고 여기서 커넥션을 꺼내서 사용할 수 있게 된다.
          */
         Connection con = DataSourceUtils.getConnection(dataSource);
         log.info("get connection={}, class={}", con, con.getClass());
