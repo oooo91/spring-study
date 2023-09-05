@@ -22,14 +22,11 @@ class MemberRepositoryV0Test {
         Member findMember = repository.findById(member.getMemberId());
         log.info("findMember={}", findMember);
         log.info("member == findMember {}", member == findMember); //false
-        /**
-         * lombok @Data 사용하면 EqualsAndHashCode 생성이 된다.
-         */
+
+        //lombok @Data 사용하면 EqualsAndHashCode 생성이 된다.
         log.info("member.equals findMember {}", member.equals(findMember)); //true
 
-        /**
-         * lombok @Data 사용하면 ToString 으로 출력된다.
-         */
+        //lombok @Data 사용하면 ToString 으로 출력된다.
         assertThat(findMember).isEqualTo(member);
 
         //update money : 1000 -> 2000

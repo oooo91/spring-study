@@ -12,56 +12,47 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
 
-import static hello.jdbc.connection.ConnectionConst.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
+ * 리소스 자동화 등록
  * 트랜잭션 - DataSource, transactionManager 자동 등록 (application.properties에 datasource 정보만 넣어두면 알아서 주입해준다.)
- *
- *
+
  * 스프링 부트의 자동 리소스 등록
- * 스프링 부트가 등장하기 이전에는 데이터소스와 트랜잭션 매니저를 개발자가 직접 스프링 빈으로 등록해서
- * 사용했다. 그런데 스프링 부트로 개발을 시작한 개발자라면 데이터소스나 트랜잭션 매니저를 직접 등록한
- * 적이 없을 것이다.
- * 이 부분을 잠시 살펴보자
- * 기존에는 이렇게 데이터소스와 트랜잭션 매니저를 직접 스프링 빈으로 등록해야 했다. 그런데 스프링 부트
- * 가 나오면서 많은 부분이 자동화되었다. (더 오래전에 스프링을 다루어왔다면 해당 부분을 주로 XML로 등
- * 록하고 관리했을 것이다.)
+ * 스프링 부트가 등장하기 이전에는 데이터소스와 트랜잭션 매니저를 개발자가 직접 스프링 빈으로 등록해서 사용했다.
+ * 그런데 스프링 부트가 나오면서 많은 부분이 자동화되었다. (더 오래전에 스프링을 다루어왔다면 해당 부분을 주로 XML로 등록하고 관리했을 것이다.)
+
  * 데이터소스 - 자동 등록
  * 스프링 부트는 데이터소스( DataSource )를 스프링 빈에 자동으로 등록한다.
  * 자동으로 등록되는 스프링 빈 이름: dataSource
- * 참고로 개발자가 직접 데이터소스를 빈으로 등록하면 스프링 부트는 데이터소스를 자동으로 등록하지 않는
- * 다.
- * 이때 스프링 부트는 다음과 같이 application.properties 에 있는 속성을 사용해서 DataSource 를 생
- * 성한다. 그리고 스프링 빈에 등록한다.
+ * 참고로 개발자가 직접 데이터소스를 빈으로 등록하면 스프링 부트는 데이터소스를 자동으로 등록하지 않는다.
+ * 이때 스프링 부트는 다음과 같이 application.properties 에 있는 속성을 사용해서 DataSource 를 생성한다. 그리고 스프링 빈에 등록한다.
  * application.properties
  * spring.datasource.url=jdbc:h2:tcp://localhost/~/test
  * spring.datasource.username=sa
  * spring.datasource.password=
- * 스프링 부트가 기본으로 생성하는 데이터소스는 커넥션풀을 제공하는 HikariDataSource 이다. 커넥션풀
- * 과 관련된 설정도 application.properties 를 통해서 지정할 수 있다.
+
+ * 스프링 부트가 기본으로 생성하는 데이터소스는 커넥션풀을 제공하는 HikariDataSource 이다.
+ * 커넥션풀과 관련된 설정도 application.properties 를 통해서 지정할 수 있다.
  * spring.datasource.url 속성이 없으면 내장 데이터베이스(메모리 DB)를 생성하려고 시도한다.
+
  * 트랜잭션 매니저 - 자동 등록
- * 스프링 부트는 적절한 트랜잭션 매니저( PlatformTransactionManager )를 자동으로 스프링 빈에 등록한
- * 다.
+ * 스프링 부트는 적절한 트랜잭션 매니저( PlatformTransactionManager )를 자동으로 스프링 빈에 등록한다.
  * 자동으로 등록되는 스프링 빈 이름: transactionManager
- * 참고로 개발자가 직접 트랜잭션 매니저를 빈으로 등록하면 스프링 부트는 트랜잭션 매니저를 자동으로 등록
- * 하지 않는다.
- * 어떤 트랜잭션 매니저를 선택할지는 현재 등록된 라이브러리를 보고 판단하는데, JDBC를 기술을 사용하면
- * DataSourceTransactionManager 를 빈으로 등록하고, JPA를 사용하면 JpaTransactionManager 를
- * 빈으로 등록한다. 둘다 사용하는 경우 JpaTransactionManager 를 등록한다. 참고로
- * JpaTransactionManager 는 DataSourceTransactionManager 가 제공하는 기능도 대부분 지원한다.
+ * 참고로 개발자가 직접 트랜잭션 매니저를 빈으로 등록하면 스프링 부트는 트랜잭션 매니저를 자동으로 등록하지 않는다.
+ * 어떤 트랜잭션 매니저를 선택할지는 현재 등록된 라이브러리를 보고 판단하는데,
+ * JDBC를 기술을 사용하면 DataSourceTransactionManager 를 빈으로 등록하고,
+ * JPA를 사용하면 JpaTransactionManager 를 빈으로 등록한다.
+ * 둘다 사용하는 경우 JpaTransactionManager 를 등록한다.
+ * 참고로 JpaTransactionManager 는 DataSourceTransactionManager 가 제공하는 기능도 대부분 지원한다.
  */
 @Slf4j
-@SpringBootTest //spring이 필요한 spring을 띄우게 된다. 의존관계 주입을 시킬 수 있다.
+@SpringBootTest
 class MemberServiceV3_4Test {
 
     public static final String MEMBER_A = "memberA";

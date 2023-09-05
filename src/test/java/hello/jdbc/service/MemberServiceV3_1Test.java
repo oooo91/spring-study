@@ -35,6 +35,8 @@ class MemberServiceV3_1Test {
         memberRepository = new MemberRepositoryV3(dataSource);
 
         /**
+         * 매니저 만들 떄 왜 datasource가 필요하냐
+         * new DataSourceTransactionManager(dataSource);
          * 트랜잭션 매니저가 datasource를 가지고 커넥션을 만드는 일도 하기 때문에 파라미터로 넣어줘야한다.
          * dataSource가 있어야 커넥션 만들 수 있다.
 

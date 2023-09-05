@@ -4,7 +4,6 @@ import static hello.jdbc.connection.DBConnectionUtil.*;
 import hello.jdbc.domain.Member;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.xml.transform.Result;
 import java.sql.*;
 import java.util.NoSuchElementException;
 
@@ -35,11 +34,11 @@ public class MemberRepositoryV0 {
             throw e;
         } finally {
             /**
-             * 만약에 여기서 exception이 터지면 con.close() 호출이 안 되는 문제 발생
+             * 만약에 여기서 예외가 터지면 con.close() 호출이 안 되는 문제가 발생하므로 모두 try catch로 감싸야한다.
              * tcp/ip 커넥션 끊기
              * pstmt.close();
              * con.close();
-             * 꼭 끊어야함 안 그러면 리소스 누수 발생
+             * 꼭 모두 끊어야한다. 안 그러면 리소스 누수 발생한다.
              */
             close(con, pstmt, null);
         }
@@ -56,7 +55,7 @@ public class MemberRepositoryV0 {
             con = getConnection();
             pstmt = con.prepareStatement(sql);
             pstmt.setString(1, memberId);
-            rs = pstmt.executeQuery(); //select 용
+            rs = pstmt.executeQuery(); //select update 용
 
             if (rs.next()) {
                 Member member = new Member();
@@ -86,7 +85,7 @@ public class MemberRepositoryV0 {
             pstmt = con.prepareStatement(sql);
             pstmt.setInt(1, money);
             pstmt.setString(2, memberId);
-            int resultSize = pstmt.executeUpdate(); //select 용
+            int resultSize = pstmt.executeUpdate();
             log.info("resultSize = {}", resultSize);
 
         } catch (SQLException e) {
@@ -107,7 +106,7 @@ public class MemberRepositoryV0 {
             con = getConnection();
             pstmt = con.prepareStatement(sql);
             pstmt.setString(1, memberId);
-            pstmt.executeUpdate(); //select 용
+            pstmt.executeUpdate();
 
         } catch (SQLException e) {
             log.error("db error", e);
@@ -124,7 +123,7 @@ public class MemberRepositoryV0 {
             try {
                 rs.close();
             } catch (SQLException e) {
-                //커넥션 닫을 때 오류 터진 거라 할 수 있는 마땅한 조치가 없다
+                //커넥션 닫을 때 오류 터진 거라 할 수 있는 마땅한 조치가 없다. 로그 찍자.
                 log.info("error", e);
             }
         }

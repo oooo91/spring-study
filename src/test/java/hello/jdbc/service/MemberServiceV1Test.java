@@ -69,7 +69,7 @@ class MemberServiceV1Test {
         memberRepository.save(memberA);
         memberRepository.save(memberEx);
 
-        //whrn
+        //when
         assertThatThrownBy(() -> memberService.accountTransfer(memberA.getMemberId(), memberEx.getMemberId(), 2000))
                 .isInstanceOf(IllegalAccessError.class);
 

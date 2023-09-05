@@ -6,15 +6,13 @@ import javax.sql.DataSource;
 import java.sql.*;
 import java.util.NoSuchElementException;
 
-import static hello.jdbc.connection.DBConnectionUtil.getConnection;
-
 /**
- * JDBC - DataSource 사용, JdbcUtils 사용
+ * JDBC - DataManager에서 DataSource 사용, JdbcUtils 사용으로
+ * DriverManager는 항상 새로운 커넥션을 획득한다.
+ * 그러나 DataSource를 사용하면 미리 만들어진 커넥션 풀에서 커넥션을 꺼내 사용할 수 있다.
 
- * DataSource 의존관계 주입
- * 외부에서 DataSource 를 주입 받아서 사용한다. 이제 직접 만든 DBConnectionUtil 을 사용하지 않아도 된다.
- * DataSource 는 표준 인터페이스 이기 때문에 DriverManagerDataSource 에서
- * HikariDataSource 로 변경되어도 해당 코드를 변경하지 않아도 된다.
+ * 외부에서 DataSource 를 주입 받아서 사용한다. 이제 직접 만든 DBConnectionUtil 을 사용하지 않아도 된다. (dataSource.getConnection() 사용하자)
+ * DataSource 는 표준 인터페이스 이기 때문에 DriverManagerDataSource 에서 HikariDataSource 로 변경되어도 해당 코드를 변경하지 않아도 된다.
 
  * JdbcUtils 편의 메서드
  * 스프링은 JDBC를 편리하게 다룰 수 있는 JdbcUtils 라는 편의 메서드를 제공한다.
@@ -56,7 +54,7 @@ public class MemberRepositoryV1 {
 
             pstmt.setString(1, member.getMemberId());
             pstmt.setInt(2, member.getMoney());
-            pstmt.executeUpdate(); //insert 또는 update 실행, update 행 개수 반환
+            pstmt.executeUpdate();
 
             return member;
         } catch (SQLException e) {
@@ -78,7 +76,7 @@ public class MemberRepositoryV1 {
             con = getConnection();
             pstmt = con.prepareStatement(sql);
             pstmt.setString(1, memberId);
-            rs = pstmt.executeQuery(); //select 용
+            rs = pstmt.executeQuery();
 
             if (rs.next()) {
                 Member member = new Member();
@@ -108,7 +106,7 @@ public class MemberRepositoryV1 {
             pstmt = con.prepareStatement(sql);
             pstmt.setInt(1, money);
             pstmt.setString(2, memberId);
-            int resultSize = pstmt.executeUpdate(); //select 용
+            int resultSize = pstmt.executeUpdate();
             log.info("resultSize = {}", resultSize);
 
         } catch (SQLException e) {

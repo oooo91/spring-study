@@ -11,6 +11,8 @@ import java.util.NoSuchElementException;
 import static hello.jdbc.connection.DBConnectionUtil.getConnection;
 
 /**
+ * DataSource 로 반환된 connection을 파라미터로 넘기자
+
  * 커넥션 -> 세션 -> 트랜잭션 수행
  * 따라서 같은 커넥션을 가지고 있어야 트랜잭션이 수행된다. 어떻게 같은 커넥션을 사용할까? -> param으로 넘기는 단순한 방법이 있다.
 

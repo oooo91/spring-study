@@ -34,7 +34,7 @@ class MemberServiceV3_2Test {
         memberRepository = new MemberRepositoryV3(dataSource);
 
         PlatformTransactionManager transactionManager = new DataSourceTransactionManager(dataSource);
-        memberService = new MemberServiceV3_2(transactionManager, memberRepository); //트랜잭션 동기화 매니저 생성
+        memberService = new MemberServiceV3_2(transactionManager, memberRepository);
 
     }
 
