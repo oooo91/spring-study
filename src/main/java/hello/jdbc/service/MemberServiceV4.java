@@ -36,6 +36,18 @@ public class MemberServiceV4 {
         memberRepository.update(fromId, fromMember.getMoney() - money);
         validation(toMember); //오류 케이스
         memberRepository.update(toId, toMember.getMoney() + money);
+
+        /**
+         * 스프링이 예외를 추상화해준 덕분에, 서비스 계층은 특정 리포지토리의 구현 기술과 예외에 종속적이지 않게 되었다.
+         * 따라서 서비스 계층은 특정 구현 기술이 변경되어도 그대로 유지할 수 있게 되었다. 다시 DI를 제대로 활용할 수 있게 된 것이다.
+         * 추가로 서비스 계층에서 예외를 잡아서 복구해야 하는 경우,
+         * 예외가 스프링이 제공하는 데이터 접근 예외로 변경되어서 서비스 계층에 넘어오기 때문에 필요한 경우 예외를 잡아서 복구하면 된다.
+         * try {
+         *   memberRepository.update(fromId, fromMember.getMoney() - money);
+         * } catch (DuplicateKeyException e {
+         *   //복구 로직
+         * }
+         */
     }
 
     private static void validation(Member toMember) {
