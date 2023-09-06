@@ -2,7 +2,7 @@ package hello.jdbc.service;
 
 import hello.jdbc.domain.Member;
 import hello.jdbc.repository.MemberRepository;
-import hello.jdbc.repository.MemberRepositoryV3;
+import static hello.jdbc.connection.ConnectionConst.*;
 import hello.jdbc.repository.MemberRepositoryV4_1;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
@@ -40,7 +40,6 @@ class MemberServiceV4Test {
     @Autowired
     private MemberServiceV4 memberService;
 
-    //프록시가 쓰는 빈들 등록 -> 프록시가 매니저 부름
     @TestConfiguration
     static class TestConfig {
 
@@ -70,7 +69,7 @@ class MemberServiceV4Test {
 
     @Test
     void AopCheck() {
-        log.info("memberService class={}", memberService.getClass()); //프폭시 memberService 객체 -> 트랜잭션도 실제 비즈니스 로직(target)을 호출하는 코드 가지고 있다.
+        log.info("memberService class={}", memberService.getClass());
         log.info("memberRepository class={}", memberRepository.getClass());
         Assertions.assertThat(AopUtils.isAopProxy(memberService)).isTrue();
     }
