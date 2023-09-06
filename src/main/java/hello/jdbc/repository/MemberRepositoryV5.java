@@ -15,6 +15,7 @@ import java.util.NoSuchElementException;
 
 /**
  * jdbc 템플릿 사용 -> jdbc 반복 문제 해결
+ * jdbcTemplate 말고도 jpa mybatis를 사용하면 순수성을 유지할 수 있다.
 
  * JDBC 반복 문제
  * 커넥션 조회, 커넥션 동기화
