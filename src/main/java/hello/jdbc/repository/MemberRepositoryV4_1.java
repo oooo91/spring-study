@@ -15,6 +15,8 @@ import java.util.NoSuchElementException;
  * 체크 예외를 런타임 예외로 변경
  * MemberRepository 인터페이스 사용
  * throws SQLException 제거
+ * 그런데 문제 -> 어느 예외는 MyDbException만 떨어지기 때문에 어떤 특정 상황인지는 알 수가 없다.
+ * 예외를 구분할 수 있는 방법 없을까? -> 데이터 접근 예외 직접 만들기
  */
 @Slf4j
 public class MemberRepositoryV4_1 implements MemberRepository {
