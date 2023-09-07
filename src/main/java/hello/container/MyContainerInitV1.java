@@ -6,6 +6,7 @@ import jakarta.servlet.ServletException;
 
 import java.util.Set;
 
+/** 서블릿 컨테이너 초기화 */
 public class MyContainerInitV1 implements ServletContainerInitializer {
 
     @Override
