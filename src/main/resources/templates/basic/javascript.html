@@ -30,5 +30,12 @@
   //객체, 객체를 JSON으로 변환하여 랜더링한다. 결과 : {"username" : "UserA", "age" : 10};
   var user = [[${user}]];
 </script>
+
+<!-- 자바스크립트 인라인 each -->
+<script th:inline="javascript">
+  [# th:each="user, stat : ${users}"]
+  var user[[${stat.count}]] = [[${user}]];
+  [/]
+</script>
 </body>
 </html>
