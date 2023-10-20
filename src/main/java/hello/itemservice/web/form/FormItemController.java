@@ -44,7 +44,7 @@ public class FormItemController {
         /**
          체크박스를 체크하면 form에서 open=on 이라는 값이 넘어가는데 이때 스프링은 'on'이라는 문자를 'true' 타입으로 변환한다 (스프링 타입 컨버터)
          문제는 체크박스를 언체크하면 아예 open이라는 필드가 넘어가지 않는다. item.getOpen=null 체크박스 특이다.
-         이 문제를 해결하기 위해 스프링이 지원하는 히든 언더바를 사용한다.
+         이 문제를 해결하기 위해 스프링이 지원하는 히든 언더바를 사용한다. 그럼 언체크 시 false가 출력된다
          */
         log.info("item.open={}", item.getOpen());
 

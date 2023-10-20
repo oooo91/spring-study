@@ -21,8 +21,9 @@
     <form action="item.html" th:action th:object="${item}" method="post"> <!--th:object -> 객체를 가져옴-->
         <div>
             <label for="itemName">상품명</label>
-            <!--th:field-> id="itemName" name="itemName" th:value="${item.id}" 이것들 자동으로 만들어줌 -->
-            <!--*{itemName} = ${item.itemName} -->
+            <!-- th:field -> id="itemName" name="itemName" th:value="${item.id}" 이것들 자동으로 만들어줌 -->
+            <!-- th:field -> 체크박스인 경우에 checked=checked도 자동 추가되며 hidden도 자동으로 넘긴다 -->
+            <!-- *{itemName} = ${item.itemName} -->
             <input type="text" id="itemName" th:field="*{itemName}" class="form-control" placeholder="이름을 입력하세요">
         </div>
         <div>
@@ -36,12 +37,22 @@
 
         <hr class="my-4">
 
-        <!-- single checkbox , 순수 html로 form 짜면 골치아픈 점 : 매번 히든 넣어야함 -->
+        <!-- single checkbox , 순수 html로 form 짜면 골치아픈 점 : 매번 히든 넣어야함
         <div>판매 여부</div>
         <div>
             <div class="form-check">
                 <input type="checkbox" id="open" name="open" class="form-check-input">
-                <input type="hidden" name="_open" value="on"> <!--히든 필드 추가--> <!--hidden은 무조건 값이 넘어가니까 얘를 보고 체크 유무를 판별-->
+                <input type="hidden" name="_open" value="on"> 히든 필드 추가, hidden은 무조건 값이 넘어가니까 얘를 보고 체크 유무를 판별
+                <label for="open" class="form-check-label">판매 오픈</label>
+            </div>
+        </div>
+        -->
+
+        <!--위의 순수 html을 thymeleaf로 변경, th:field 가 체크박스인 경우 hidden 을 알아서 만들어준다-->
+        <div>판매 여부</div>
+        <div>
+            <div class="form-check">
+                <input type="checkbox" id="open" th:field="*{open}" class="form-check-input"> <!--또는 ${item.open}-->
                 <label for="open" class="form-check-label">판매 오픈</label>
             </div>
         </div>
