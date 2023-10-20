@@ -2,6 +2,7 @@ package hello.itemservice.web.form;
 
 import hello.itemservice.domain.item.Item;
 import hello.itemservice.domain.item.ItemRepository;
+import hello.itemservice.domain.item.ItemType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -32,6 +33,12 @@ public class FormItemController {
         regions.put("BUSAN", "부산");
         regions.put("JEJU", "제주");
         return regions;
+    }
+
+    @ModelAttribute("itemTypes")
+    public ItemType[] itemTypes() {
+        //ItemType[] values = ItemType.values();
+        return ItemType.values();
     }
 
     @GetMapping
@@ -80,6 +87,8 @@ public class FormItemController {
          이 문제를 해결하기 위해 스프링이 지원하는 히든 언더바를 사용한다. 그럼 언체크 시 false가 출력된다
          */
         log.info("item.open={}", item.getOpen());
+        log.info("item.regions={}", item.getRegions()); //LIST로 들어옴
+        log.info("item.itemType={}", item.getItemType());
 
         Item savedItem = itemRepository.save(item);
         redirectAttributes.addAttribute("itemId", savedItem.getId());
