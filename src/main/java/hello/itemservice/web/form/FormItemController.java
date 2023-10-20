@@ -23,6 +23,7 @@ public class FormItemController {
 
     /**
      * 요래 해두면 스프링이 알아서 Model 에 항상 model.addAttribute("regions", regions); 를 담는다.
+     * 근데 이럴 거면 그냥 static 전역 변수로 처리하는 게 낫다. 계속해서 regions()를 호출할 거니깐 (사실 이 정도로 성능 문제까지 가진 않는다)
      */
     @ModelAttribute("regions")
     public Map<String, String> regions() {
