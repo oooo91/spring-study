@@ -13,8 +13,10 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
-import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,6 +30,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class ValidationItemControllerV2 {
 
   private final ItemRepository itemRepository;
+  private final ItemValidator itemValidator;
+
+  //컨트롤러 호출될 때마다
+  @InitBinder
+  public void init(WebDataBinder dataBinder) {
+    dataBinder.addValidators(itemValidator);
+  }
 
   @GetMapping
   public String items(Model model) {
@@ -185,7 +194,7 @@ public String addItemV2(@ModelAttribute Item item, BindingResult bindingResult,
     return "redirect:/validation/v2/items/{itemId}";
   }
 
-  @PostMapping("/add")
+  //@PostMapping("/add")
   public String addItemV4(@ModelAttribute Item item, BindingResult bindingResult,
       RedirectAttributes redirectAttributes, Model model, FieldError error) {
 
@@ -226,6 +235,36 @@ public String addItemV2(@ModelAttribute Item item, BindingResult bindingResult,
     return "redirect:/validation/v2/items/{itemId}";
   }
 
+  //@PostMapping("/add")
+  public String addItemV5(@ModelAttribute Item item, BindingResult bindingResult,
+      RedirectAttributes redirectAttributes, Model model, FieldError error) {
+
+    itemValidator.validate(item, bindingResult);
+
+    if (bindingResult.hasErrors()) {
+      return "validation/v2/addForm";
+    }
+    //성공
+    Item savedItem = itemRepository.save(item);
+    redirectAttributes.addAttribute("itemId", savedItem.getId());
+    redirectAttributes.addAttribute("status", true);
+    return "redirect:/validation/v2/items/{itemId}";
+  }
+
+    @PostMapping("/add") //@Validated -> 검증기가 알아서 수행
+    public String addItemV6(@Validated @ModelAttribute Item item, BindingResult bindingResult,
+        RedirectAttributes redirectAttributes, Model model, FieldError error) {
+
+      if (bindingResult.hasErrors()) {
+        return "validation/v2/addForm";
+      }
+
+    //성공
+    Item savedItem = itemRepository.save(item);
+    redirectAttributes.addAttribute("itemId", savedItem.getId());
+    redirectAttributes.addAttribute("status", true);
+    return "redirect:/validation/v2/items/{itemId}";
+  }
 
   @GetMapping("/{itemId}/edit")
   public String editForm(@PathVariable Long itemId, Model model) {
