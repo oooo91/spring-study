@@ -1,18 +1,27 @@
 package hello.login;
 
+import hello.login.web.argumentResolver.LoginMemberArgumentResolver;
 import hello.login.web.filter.LogFilter;
 import hello.login.web.filter.LoginCheckFilter;
 import hello.login.web.interceptor.LoginCheckInterceptor;
 import hello.login.web.interceptor.LoginInterceptor;
+import java.util.List;
 import javax.servlet.Filter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
+
+  //ArgumentResolver 등록
+  @Override
+  public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+    resolvers.add(new LoginMemberArgumentResolver());
+  }
 
   //인터셉터 등록, implements WebMvcConfigurer, 서블릿과 달리 필터 형식, 서블릿과 달리 모든 경로 /** 별 두개
   @Override

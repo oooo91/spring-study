@@ -2,6 +2,7 @@ package hello.login.web;
 
 import hello.login.domain.member.Member;
 import hello.login.domain.member.MemberRepository;
+import hello.login.web.argumentResolver.Login;
 import hello.login.web.session.SessionManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -84,7 +85,7 @@ public class HomeController {
 
     //request 에서 getSession 해오는 거 번잡하다 -> paramter로 getSssion 바로 받을 수 있다.
     //스프링이 @SessionAttribute 제공한다. -> 이 기능은 세션을 생성하진 않으므로 조회할 때 사용하면 되겠다.
-    @GetMapping("/")
+    //@GetMapping("/")
     public String homeLoginV4(
         @SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember,
         HttpServletRequest request, Model model) {
@@ -95,6 +96,18 @@ public class HomeController {
         }
 
         //세션이 유지되면 로그인으로 이동
+        model.addAttribute("member", loginMember);
+        return "loginHome"; //사용자 전용 화면
+    }
+
+    //@Login 어노테이션이 있고, Member 를 파라미터로 받는다면 ModelAndAttribute 가 아니라 ArgumentResolver 가 동작되도록 ArgumentResolver 구현한다.
+    //argumentResolver 를 통해 -> 바로 Member 로 받을 수 있게 한다.
+    @GetMapping("/")
+    public String homeLoginV5(@Login Member loginMember, Model model) {
+
+        if (loginMember == null) {
+            return "home";
+        }
         model.addAttribute("member", loginMember);
         return "loginHome"; //사용자 전용 화면
     }
