@@ -15,7 +15,7 @@ class SessionManagerTest {
   void sessionTest() {
 
     //세션 생성
-    //HttpServletResponse -> 인터페이스... 라서 구현하기 어렵다 -> 스프링이 Mock 제공
+    //서블릿 컨테이너 환경이 아니므로 HttpServletResponse 사용 불가 -> 스프링이 Mock 제공
     MockHttpServletResponse response = new MockHttpServletResponse();
     Member member = new Member();
     sessionManager.createSession(member, response);
