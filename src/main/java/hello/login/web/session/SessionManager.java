@@ -44,7 +44,7 @@ public class SessionManager {
     if (sessionCookie == null) {
       return null;
     }
-    return sessionStore.get(sessionCookie.getValue()); //getValue() -> sessionId에 매핑되는 실제 값
+    return sessionStore.get(sessionCookie.getValue()); //uuid
   }
 
   /**
