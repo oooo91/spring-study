@@ -42,7 +42,13 @@ public class ErrorPageController {
     return "error-page/500";
   }
 
-  //오류가 떨어져서 /error-page/500 일 때, 그리고 기존 요청이 api 간의 요청 (application/json)일 때
+  //기존 요청이 api 간의 요청 (application/json)일 때는 스프링 부트(BasicController)가 제공하는 오류 메커니즘으로 api 오류를 처리할 수 있다.
+  //앞서 본 BasicErrorController 는
+  //예외가 터져서 -> WAS 까지 도달하면 -> 스프링 부트가 기본 ERROR 페이지를 등록한 다음 (/error 로 시작), BasicErrorController 를 호출한다.
+  //BasicController 을 까보면 text/html 로 요청이 오면 text/html 를 (/error/** html 반환) json 요청이 오면 json 형식으로 응답하도록 설계되어있다.
+  //기본적인 json 응답 결과 스펙은 timestamp, status, error, exception, path 를 포함한다.
+  //단, 응답 결과 스펙이 api 요청마다 다를 수 있다. 예를 들어 상품 관련 예외, 회원 관련 예외 시 같은 400 이라도 예외를 다르게 처리해야하는 상황이라면 이 방법은 좋지 않다.
+  //BasicErrorController 를 확장해서 JSON 형식 메시지를 변경할 수 있다 정도로만 이해하고, API 오류 처리는 @ExceptionHandler 를 사용하는 것이 좋다.
   @RequestMapping(value = "/error-page/500", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Map<String, Object>> errorPage500Api(HttpServletRequest request,
       HttpServletResponse response) {

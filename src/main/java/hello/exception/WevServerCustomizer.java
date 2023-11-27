@@ -6,7 +6,7 @@ import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class WevServerCustomizer implements WebServerFactoryCustomizer<ConfigurableWebServerFactory> {
 
   //오륰 코드/예외에 따른 오류 페이지 커스텀하기
