@@ -1,5 +1,6 @@
 package hello.exception.api;
 
+import hello.exception.exception.BadRequestException;
 import hello.exception.exception.UserException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -37,6 +38,13 @@ public class ApiExceptionController {
     }
 
     return new MemberDto(id, "hello " + id);
+  }
+
+  //스프링 부트 -> 여러 exceptionResolver 제공
+  //ResponseStatusExceptionResolver 가 @ResponseStatus 어노테이션 확인 -> response.sendError(code, reason) -> return ModelAndView();
+  @GetMapping("/api/response-status-ex1")
+  public String responseStatusEx1() {
+    throw new BadRequestException();
   }
 
   @Data
