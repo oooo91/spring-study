@@ -19,7 +19,7 @@ public class ApiExceptionV2Controller {
 
   //ExceptionHandler 너무 복잡다. @ExceptionHandler 사용하여 exceptionHandlerExceptionResolver 를 활용하자.
   //해당 컨트롤러에서 IllegalArgumentException 예외가 발생하면 ExceptionHandler 가 잡고,
-  //ExceptionHandler 가 ErrorResult 를 json 형태로 반환한다. (httpMessageConverter) (BasicErrorController 가 가진 형태로 반환 안 된다!)
+  //ExceptionHandler 가 ErrorResult 를 json 형태로 반환한다. (httpMessageConverter) (BasicErrorController 의 기본 리턴 형태로 반환 안 된다!)
   //컨트롤 예외 -> resolver 에서 예외 해결 시도 -> exceptionHandlerExceptionResolver (가장 우선순위 높음) 가 실행 -> @ExceptionHandler 어노테이션 있으면 호출
   //근데 문제는 예외를 잘 잡아서 정상 동작되어 WAS 에서 200 으로 인지한다. -> @ResponseStatus 어노테이션을 사용하여 예외 상태 코드를 바꾸자
   //드디어 서블릿 컨테이너까지 예외 전파 안 되고 정상 흐름으로 동작하되, 예외를 던질 수 있게 되었다!
