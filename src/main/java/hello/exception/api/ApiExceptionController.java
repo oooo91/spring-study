@@ -26,13 +26,13 @@ public class ApiExceptionController {
 
     //그런데 api 별 예외 처리를 다르게 하고 싶다면?
     //잘못된 입력 값으로 서버에서 에러가 나면 -> 500 (IllegalArgumentException) 이 터진다. 사실상 에러는 500이다.
-    //그러나 클라이언트에게 400 에러를 떨구고 싶다면, 어디서 예외를 바꿀 수 있을까 -> HandlerExceptionResolver
+    //그러나 클라이언트에게 400 에러를 떨구고 싶다면, 어디서 예외를 바꿀 수 있을까 -> HandlerExceptionResolver : 예외 발생 시 동작을 새로 정의한다.
     if (id.equals("bad")) {
       throw new IllegalArgumentException("잘못된 입력 값");
     }
 
-    //또한 기존에 사용한 BasicErrorController -> 서블릿 컨테이너까지 예외가 전달되었으나,
-    //ExceptionResolver 를 활용하면 Resolver에서 바로 예외를 처리할 수 있다. -> 결과적으로 WAS 입장에서는 정상 처리가 된다.
+    //또한 기존에 사용한 BasicErrorController -> 서블릿 컨테이너까지 예외(exception)가 전달되었으나,
+    //ExceptionResolver 를 활용하면 resolver 바로 예외를 처리할 수 있다. (exception -> sendError) (따로 뷰(ModelAndView)가 없다면 WAS 에서 오류 코드에 해당하는 /error 호출한다)
     if (id.equals("user-ex")) {
       throw new UserException("사용자 오류");
     }
