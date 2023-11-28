@@ -20,7 +20,6 @@ public class MyHandlerExceptionResolver implements HandlerExceptionResolver {
       //ModelAndView 비어있으니까 뷰는 호출하지 않고, WAS 에서 sendError 까본 다음 오류 페이지를 찾는다. (exception -> sendError 로 바꾸기)
       //이와 같이 예외 상태 코드를 변환하는 것뿐만 아니라
       //뷰 템플릿 처리 (이때는 ModelAndView 가 null 이 아니다) 또는 API 응답 처리 (JSON, HTTP 바디에 직접 데이터 넣기) 도 가능하다.
-      //기본적인 json 응답 결과 스펙은 timestamp, status, error, exception, path 를 포함한다.
       if (ex instanceof IllegalArgumentException) {
         log.info("IllegalArgumentException resolver t0 400");
         response.sendError(HttpServletResponse.SC_BAD_REQUEST, ex.getMessage());
