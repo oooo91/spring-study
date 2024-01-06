@@ -2,7 +2,6 @@ package hello.proxy.jdkdynamic.code;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
-import java.util.Arrays;
 import lombok.extern.slf4j.Slf4j;
 
 //JDK 동적 프록시 사용 => AInterface, BInterface 묶기
