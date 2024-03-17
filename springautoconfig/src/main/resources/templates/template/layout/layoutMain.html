@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!--common_header -> 태그, link 자체를 넣는다. base.html의 common_header에 layoutMain.html의 title와 link를 넘긴다. -->
+<!--html header를 넘기되 일부분을 파라미터로 수정할 수 있다 -->
+<head th:replace="template/layout/base :: common_header(~{::title},~{::link})">
+  <title>메인 타이틀</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/themes/smoothness/jquery-ui.css}">
+</head>
+<body>
+메인 컨텐츠
+</body>
+</html>
